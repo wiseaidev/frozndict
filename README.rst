@@ -23,7 +23,7 @@ frozndict
 **frozndict** requires Python 3.9 or above.
 
 .. raw:: html
-   
+
    <details>
    <summary>To install Python 3.9, I recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>
 
@@ -101,7 +101,7 @@ frozndict
 ---------------
 
 .. raw:: html
-   
+
    With <code>pip</code>:
    <br>
    <br>
@@ -117,7 +117,7 @@ frozndict
    <br>
 
 .. code-block:: console
-  
+
    python3.9 -m pip install --user pipx
    pipx install --python python3.9 frozndict
 

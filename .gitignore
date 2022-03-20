@@ -1,0 +1,21 @@
+# Byte-compiled files
+__pycache__/
+
+# Unit test / coverage reports
+.tox/
+.coverage
+*.cover
+
+# pyenv
+.python-version
+
+# dotenv
+.env
+
+# virtualenv
+.venv
+venv/
+ENV/
+
+# mypy
+.mypy_cache/
