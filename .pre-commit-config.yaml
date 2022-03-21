@@ -11,25 +11,25 @@ repos:
     hooks:
       - id: flake8
         name: Check flake8 syntax
-        entry: flake8 frozndict/ tests/
+        entry: flake8 frozndict tests
         pass_filenames: false
         language: system
         types: [python]
       - id: isort
         name: Sort imports alphabetically
-        entry: isort frozndict/ tests/ --check-only --diff
+        entry: isort frozndict tests --check-only --diff
         pass_filenames: false
         language: system
         types: [python]
       - id: mypy
         name: Check mypy static types match
-        entry: mypy -p frozndict/
+        entry: mypy -p frozndict
         pass_filenames: false
         language: system
         types: [python]
       - id: black
         name: Run black code formatter
-        entry: black frozndict/ --check
+        entry: black frozndict --check
         pass_filenames: false
         language: system
         types: [python]
