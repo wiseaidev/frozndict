@@ -6,25 +6,25 @@ frozndict
 
    <p align="center">
 
-.. image:: https://img.shields.io/github/coverage/Harmouch101/frozndict.svg?style=for-the-badge&logoColor=blue&color=black
-  :target: https://github.com/Harmouch101/frozndict/commits/main
-  :alt: Coverage Report
+.. image:: https://coveralls.io/repos/z4r/python-coveralls/badge.png?branch=master?style=for-the-badge&logoColor=blue&color=black
+   :target: https://coveralls.io/r/Harmouch101/frozndict
+   :alt: Coverage Report
 
 .. image:: https://img.shields.io/github/license/Harmouch101/frozndict?style=for-the-badge&logoColor=blue&color=black
-  :target: https://github.com/Harmouch101/frozndict/blob/main/LICENSE
-  :alt: License
+   :target: https://github.com/Harmouch101/frozndict/blob/main/LICENSE
+   :alt: License
 
 .. image:: https://img.shields.io/pypi/v/frozndict.svg?style=for-the-badge&logoColor=blue&color=black
-  :target: https://pypi.org/project/frozndict/
-  :alt: pypi version
+   :target: https://pypi.org/project/frozndict/
+   :alt: pypi version
 
 .. image:: https://results.pre-commit.ci/badge/github/Harmouch101/frozndict/main.svg?style=for-the-badge&logoColor=blue&color=black
-  :target: https://results.pre-commit.ci/latest/github/Harmouch101/frozndict/main
-  :alt: pre-commit ci status
+   :target: https://results.pre-commit.ci/latest/github/Harmouch101/frozndict/main
+   :alt: pre-commit ci status
 
 .. image:: https://circleci.com/gh/harmouch101/frozndict.svg?style=shield?style=for-the-badge&logoColor=blue&color=black
-  :target: https://circleci.com/gh/Harmouch101/frozndict
-  :alt: Build Status
+   :target: https://circleci.com/gh/Harmouch101/frozndict
+   :alt: Build Status
 
 .. raw:: html
 
@@ -149,18 +149,20 @@ These following projects were used to build and test :code:`frozndict`. **A Big 
 
 .. raw:: html
 
-   <a  href="https://www.python.org/"><code>python</code></a>
-   <a  href="https://python-poetry.org/"><code>poetry</code></a>
-   <a  href="https://docs.pytest.org/en/7.1.x/"><code>pytest</code></a>
-   <a  href="https://flake8.pycqa.org/en/latest/"><code>flake8</code></a>
-   <a  href="https://coverage.readthedocs.io/en/6.3.2/"><code>coverage</code></a>
-   <a  href="https://pypi.org/project/rstcheck/"><code>rstcheck</code></a>
-   <a  href="https://mypy.readthedocs.io/en/stable/"><code>mypy</code></a>
-   <a  href="https://pytest-cov.readthedocs.io/en/latest/"><code>pytest-cov</code></a>
-   <a  href="https://tox.wiki/en/latest/"><code>tox</code></a>
-   <a  href="https://github.com/PyCQA/isort"><code>isort</code></a>
-   <a  href="https://black.readthedocs.io/en/stable/"><code>black</code></a>
-   <a  href="https://pre-commit.com/"><code>pre-commit</code></a>
+   <ul>
+      <li><a  href="https://www.python.org/"><code>python</code></a></li>
+      <li><a  href="https://python-poetry.org/"><code>poetry</code></a></li>
+      <li><a  href="https://docs.pytest.org/en/7.1.x/"><code>pytest</code></a></li>
+      <li><a  href="https://flake8.pycqa.org/en/latest/"><code>flake8</code></a></li>
+      <li><a  href="https://coverage.readthedocs.io/en/6.3.2/"><code>coverage</code></a></li>
+      <li><a  href="https://pypi.org/project/rstcheck/"><code>rstcheck</code></a></li>
+      <li><a  href="https://mypy.readthedocs.io/en/stable/"><code>mypy</code></a></li>
+      <li><a  href="https://pytest-cov.readthedocs.io/en/latest/"><code>pytest-cov</code></a></li>
+      <li><a  href="https://tox.wiki/en/latest/"><code>tox</code></a></li>
+      <li><a  href="https://github.com/PyCQA/isort"><code>isort</code></a></li>
+      <li><a  href="https://black.readthedocs.io/en/stable/"><code>black</code></a></li>
+      <li><a  href="https://pre-commit.com/"><code>pre-commit</code></a></li>
+   </ul>
 
 📝 License
 ----------
