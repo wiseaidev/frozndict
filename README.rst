@@ -2,18 +2,33 @@
 frozndict
 =========
 
-.. image:: https://img.shields.io/github/coverage/Harmouch101/frozndict.svg
+.. raw:: html
+
+   <p align="center">
+
+.. image:: https://img.shields.io/github/coverage/Harmouch101/frozndict.svg?style=for-the-badge&logoColor=blue&color=black
   :target: https://github.com/Harmouch101/frozndict/commits/main
   :alt: Coverage Report
 
-.. image:: https://img.shields.io/github/license/Harmouch101/frozndict.svg
-  :target: https://github.com/Harmouch101/frozndict
-  :alt: Licence
+.. image:: https://img.shields.io/github/license/Harmouch101/frozndict?style=for-the-badge&logoColor=blue&color=black
+  :target: https://github.com/Harmouch101/frozndict/blob/main/LICENSE
+  :alt: License
 
-.. image:: https://img.shields.io/pypi/v/frozndict.svg
+.. image:: https://img.shields.io/pypi/v/frozndict.svg?style=for-the-badge&logoColor=blue&color=black
   :target: https://pypi.org/project/frozndict/
   :alt: pypi version
 
+.. image:: https://results.pre-commit.ci/badge/github/Harmouch101/frozndict/main.svg?style=for-the-badge&logoColor=blue&color=black
+  :target: https://results.pre-commit.ci/latest/github/Harmouch101/frozndict/main
+  :alt: pre-commit ci status
+
+.. image:: https://circleci.com/gh/Harmouch101/.svg?style=shield?style=for-the-badge&logoColor=blue&color=black
+  :target: https://circleci.com/gh/Harmouch101/frozndict
+  :alt: Build Status
+
+.. raw:: html
+
+   </p>
 
 **frozndict** is a python package that acts as an alternative to frozenset, but for dictionaries.
 
