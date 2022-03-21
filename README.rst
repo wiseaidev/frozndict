@@ -139,8 +139,45 @@ frozndict
 🚸 Usage
 --------
 
+.. code-block:: python3
 
+   from frozndict import frozendict
 
+   # Empty immutable immutable dictionary.
+   >>> frozen_dict = frozendict({})
+   frozendict({})
+
+   # Non empty immutable immutable dictionary.
+   >>> frozen_dict = frozendict({"Greetings": "Hello World!"})
+   >>> frozen_dict
+   frozendict({'Greetings': 'Hello World!'})
+
+   # Get an item.
+   >>> frozen_dict["Greetings"]
+   'Hello World!'
+
+   # Copy a dictionary.
+   >>> ffrozen_dict_copy = frozen_dict.copy()
+   >>> frozen_dict_copy
+   {'Greetings': 'Hello World!'}
+
+   # Nested dictionary.
+   >>> frozen_dict_copy = frozendict({'x': 3, 'y': 4, 'z': {'a': 0, 'b': [3,1,{4,1},[5,9]]}}, c= 1)
+   >>> print(a.pretty_repr())
+   frozendict({
+       x: 3,
+       y: 4,
+       z: {
+           a: 0,
+           b: [3, 1, {1, 4}, [5, 9]],
+       },
+       c: 1,
+   })
+
+   # Create an immutable dictionary using `fromkeys` method.
+   >>> frozen_dict = frozendict.fromkeys(["x", "y"], "5")
+   >>> frozen_dict
+   frozendict({'x': '5', 'y': '5'})
 
 🎉 Credits
 ----------
