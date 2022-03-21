@@ -7,15 +7,15 @@ version: 2
 aliases:
   - &container_python
     docker:
-      - image: cimg/python:3.9.11  # primary container for the build job
+      - image: cimg/python:3.9.10  # primary container for the build job
 
   - &run_task_install_tox_dependencies
     run:
       name: install tox dependencies
       command: |
         sudo apt-get -qq update
-        sudo apt install -y build-essential libssl-dev libpython2-dev python python3-pip
-        sudo pip install tox
+        sudo apt install -y build-essential libssl-dev libpython2-dev python3-pip
+        sudo pip3 install tox
 
 jobs:
   testing:
