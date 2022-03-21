@@ -21,12 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import pytest
 
 from operator import (
-    ior
+    ior,
 )
 
 from frozndict import (
     __version__,
-    frozendict
+    frozendict,
 )
 
 
