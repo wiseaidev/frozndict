@@ -17,7 +17,7 @@ repos:
         types: [python]
       - id: isort
         name: Sort imports alphabetically
-        entry: isort frozndict/ tests/ --check-only --diff 
+        entry: isort frozndict/ tests/ --check-only --diff
         pass_filenames: false
         language: system
         types: [python]
