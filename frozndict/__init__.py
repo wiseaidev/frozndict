@@ -8,4 +8,6 @@ __author__ = """Mahmoud Harmouch"""
 __email__ = "eng.mahmoudharmouch@gmail.com"
 __version__ = "0.1.0"
 
-from frozndict.frozendict import frozendict
+from frozndict.frozendict import (
+    frozendict
+)

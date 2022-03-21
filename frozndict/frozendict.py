@@ -18,10 +18,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 
-from collections.abc import Hashable
-from typing import Any, Dict, Iterator, NoReturn, Optional, Tuple, TypeVar
+from collections.abc import (
+    Hashable
+)
+from typing import (
+    Any,
+    Dict,
+    Iterator,
+    NoReturn,
+    Optional,
+    Tuple,
+    TypeVar
+)
 
-from frozndict.utils import block_function, deny_access, hash_args, hash_kwargs, indent
+from frozndict.utils import (
+    block_function,
+    deny_access,
+    hash_args,
+    hash_kwargs,
+    indent
+)
 
 T = TypeVar("T", bound=Any)
 TKey = TypeVar("TKey", bound=Hashable)
