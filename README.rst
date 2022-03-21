@@ -24,7 +24,11 @@ frozndict
 
 .. image:: https://circleci.com/gh/harmouch101/frozndict.svg?style=shield?style=for-the-badge&logoColor=blue&color=black
    :target: https://circleci.com/gh/Harmouch101/frozndict
-   :alt: Build Status
+   :alt: Circle ci Build Status
+
+.. image:: https://img.shields.io/github/repo-size/Harmouch101/frozndict?style=for-the-badge&logoColor=blue&color=black
+   :target: https://github.com/Harmouch101/frozndict/
+   :alt: Repo Size
 
 .. raw:: html
 
@@ -141,7 +145,7 @@ frozndict
 
 .. code-block:: python3
 
-   from frozndict import frozendict
+   >>> from frozndict import frozendict
 
    # Empty immutable immutable dictionary.
    >>> frozen_dict = frozendict({})
@@ -157,7 +161,7 @@ frozndict
    'Hello World!'
 
    # Copy a dictionary.
-   >>> ffrozen_dict_copy = frozen_dict.copy()
+   >>> frozen_dict_copy = frozen_dict.copy()
    >>> frozen_dict_copy
    {'Greetings': 'Hello World!'}
 
@@ -178,6 +182,33 @@ frozndict
    >>> frozen_dict = frozendict.fromkeys(["x", "y"], "5")
    >>> frozen_dict
    frozendict({'x': '5', 'y': '5'})
+
+   # Test uniqueness: frozendict(a=1,b=2) == frozendict(b=2,a=1)
+   >>> set([frozendict(a=1,b=2), frozendict(a=5), frozendict(b=2,a=1)])
+   {frozendict({'a': 5}), frozendict({'a': 1, 'b': 2})}
+
+
+🚀 Similar Projects Comparaison
+-------------------------------
+
+This project is similar to `frozendict`_ created by `Marco Sulla`_.
+
+.. code-block:: python3
+
+   >>> from frozndict import frozendict as myfrozendict
+   >>> from frozendict import frozendict
+
+   # create instances
+   >>> my_frozen_dict = myfrozendict({'x': 3, 'y': 4, 'z': {'a': 0, 'b': [3,1,{4,1},[5,9]]}}, c= 1)
+   >>> frozen_dict = frozendict({'x': 3, 'y': 4, 'z': {'a': 0, 'b': [3,1,{4,1},[5,9]]}}, c= 1)
+   >>> dict = dict({'x': 3, 'y': 4, 'z': {'a': 0, 'b': [3,1,{4,1},[5,9]]}}, c= 1)
+
+   # comparaison
+   >>> import sys
+   >>> tuple(map(sys.getsizeof, [frozen_dict, my_frozen_dict, dict]))
+   (248, 240, 232)
+
+Notice :code:`my_frozen_dict` takes less space in memory than :code:`frozen_dict`!
 
 🎉 Credits
 ----------
@@ -207,3 +238,5 @@ These following projects were used to build and test :code:`frozndict`. **A Big 
 This program and the accompanying materials are made available under the terms and conditions of the `GNU GENERAL PUBLIC LICENSE`_.
 
 .. _GNU GENERAL PUBLIC LICENSE: http://www.gnu.org/licenses/
+.. _frozendict: https://pypi.org/project/frozendict/
+.. _Marco Sulla: https://github.com/Marco-Sulla
