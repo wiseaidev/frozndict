@@ -34,6 +34,10 @@ frozndict
 
    </p>
 
+.. image:: ./assets/pydoc.png
+   :target: https://github.com/Harmouch101/frozndict/
+   :alt: Banner
+
 **frozndict** is a python package that acts as an alternative to frozenset, but for dictionaries.
 
 🛠️ Requirements
