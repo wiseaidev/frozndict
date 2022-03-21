@@ -23,7 +23,7 @@ frozndict
   :alt: pre-commit ci status
 
 .. image:: https://circleci.com/gh/harmouch101/frozndict.svg?style=shield?style=for-the-badge&logoColor=blue&color=black
-  :target: https://circleci.com/github/Harmouch101/frozndict
+  :target: https://circleci.com/gh/Harmouch101/frozndict
   :alt: Build Status
 
 .. raw:: html
