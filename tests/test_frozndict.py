@@ -18,11 +18,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 
-from operator import ior
-
 import pytest
 
-from frozndict import __version__, frozendict
+from operator import (
+    ior
+)
+
+from frozndict import (
+    __version__,
+    frozendict
+)
 
 
 def test_version():
