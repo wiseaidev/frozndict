@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "frozndict"
+version = "0.1.0"
+description = "a frozen dictionnary."
+authors = ["Mahmoud Harmouch <eng.mahmoudharmouch@gmail.com>"]
+license = "GNU General Public License v3.0"
+readme = "README.rst"
+repository = "https://github.com/Harmouch101/frozndict"
+homepage = "https://harmouch101.github.io/Harmouch101/frozndict"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+keywords = ["python", "frozendict", "frozndict"]
+packages = [ { include = "frozndict", from = "." } ]
+include = [
+    "README.rst",
+    "pyproject.toml"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+flake8 = "^4.0.1"
+coverage = "^6.3.2"
+rstcheck = "^3.3.1"
+mypy = "^0.941"
+pytest-cov = "^3.0.0"
+tox = "^3.24.5"
+isort = "^5.10.1"
+black = "^22.1.0"
+pre-commit = "^2.17.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
