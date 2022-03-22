@@ -196,6 +196,7 @@ The following projects were used to build and test :code:`frozndict`.
 - `black`_
 - `precommit`_
 
+
 👋 Contribute
 -------------
 
