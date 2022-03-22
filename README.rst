@@ -2,24 +2,24 @@
 frozndict
 =========
 
-.. raw:: html
-
-   <p align="center">
-
 .. image:: https://coveralls.io/repos/z4r/python-coveralls/badge.png?branch=master?style=for-the-badge&logoColor=blue&color=black
    :target: https://coveralls.io/r/Harmouch101/frozndict
+   :align: center 
    :alt: Coverage Report
 
 .. image:: https://img.shields.io/github/license/Harmouch101/frozndict?style=for-the-badge&logoColor=blue&color=black
    :target: https://github.com/Harmouch101/frozndict/blob/main/LICENSE
+   :align: center 
    :alt: License
 
 .. image:: https://img.shields.io/pypi/v/frozndict.svg?style=for-the-badge&logoColor=blue&color=black
    :target: https://pypi.org/project/frozndict/
+   :align: center 
    :alt: pypi version
 
 .. image:: https://results.pre-commit.ci/badge/github/Harmouch101/frozndict/main.svg?style=for-the-badge&logoColor=blue&color=black
    :target: https://results.pre-commit.ci/latest/github/Harmouch101/frozndict/main
+   :align: center 
    :alt: pre-commit ci status
 
 .. image:: https://circleci.com/gh/harmouch101/frozndict.svg?style=shield?style=for-the-badge&logoColor=blue&color=black
@@ -28,11 +28,8 @@ frozndict
 
 .. image:: https://img.shields.io/github/repo-size/Harmouch101/frozndict?style=for-the-badge&logoColor=blue&color=black
    :target: https://github.com/Harmouch101/frozndict/
+   :align: center 
    :alt: Repo Size
-
-.. raw:: html
-
-   </p>
 
 .. image:: ./assets/pydoc.png
    :target: https://github.com/Harmouch101/frozndict/
@@ -45,12 +42,9 @@ frozndict
 
 **frozndict** requires Python 3.9 or above.
 
-.. raw:: html
+To install Python 3.9, I recommend using `pyenv`_.
 
-   <details>
-   <summary>To install Python 3.9, I recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>
-
-.. code-block:: console
+.. code-block:: bash
 
    # install pyenv
    git clone https://github.com/pyenv/pyenv ~/.pyenv
@@ -78,17 +72,10 @@ frozndict
    # make it available globally
    pyenv global system 3.9.10
 
-.. raw:: html
 
-   </details>
+To manage the Python 3.9 virtualenv, I recommend using `poetry`_.
 
-
-.. raw:: html
-
-   <details>
-   <summary>To activate the Python 3.9 virtualenv, I recommend using <a href="https://github.com/python-poetry/poetry"><code>poetry</code></a>.</summary>
-
-.. code-block:: console
+.. code-block:: bash
 
    # install poetry
    curl -sSL https://install.python-poetry.org | python3 -
@@ -115,29 +102,17 @@ frozndict
    poetry env use 3.9.10
    Using virtualenv: ~/.cache/pypoetry/virtualenvs/frozndict-dxc671ba-py3.9
 
-.. raw:: html
-
-   </details>
-
 
 🚨 Installation
 ---------------
 
-.. raw:: html
-
-   With <code>pip</code>:
-   <br>
-   <br>
+With :code:`pip`:
 
 .. code-block:: console
 
    python3.9 -m pip install frozndict
 
-.. raw:: html
-
-   With <a  href="https://github.com/pypa/pipx"><code>pipx</code></a>:
-   <br>
-   <br>
+With `pipx`_:
 
 .. code-block:: console
 
@@ -217,24 +192,20 @@ Notice :code:`my_frozen_dict` takes less space in memory than :code:`frozen_dict
 🎉 Credits
 ----------
 
-These following projects were used to build and test :code:`frozndict`. **A Big Thank you!**
+These following projects were used to build and test :code:`frozndict`.
 
-.. raw:: html
-
-   <ul>
-      <li><a  href="https://www.python.org/"><code>python</code></a></li>
-      <li><a  href="https://python-poetry.org/"><code>poetry</code></a></li>
-      <li><a  href="https://docs.pytest.org/en/7.1.x/"><code>pytest</code></a></li>
-      <li><a  href="https://flake8.pycqa.org/en/latest/"><code>flake8</code></a></li>
-      <li><a  href="https://coverage.readthedocs.io/en/6.3.2/"><code>coverage</code></a></li>
-      <li><a  href="https://pypi.org/project/rstcheck/"><code>rstcheck</code></a></li>
-      <li><a  href="https://mypy.readthedocs.io/en/stable/"><code>mypy</code></a></li>
-      <li><a  href="https://pytest-cov.readthedocs.io/en/latest/"><code>pytest-cov</code></a></li>
-      <li><a  href="https://tox.wiki/en/latest/"><code>tox</code></a></li>
-      <li><a  href="https://github.com/PyCQA/isort"><code>isort</code></a></li>
-      <li><a  href="https://black.readthedocs.io/en/stable/"><code>black</code></a></li>
-      <li><a  href="https://pre-commit.com/"><code>pre-commit</code></a></li>
-   </ul>
+- `python`_
+- `poetry`_
+- `pytest`_
+- `flake8`_
+- `coverage`_
+- `rstcheck`_
+- `mypy`_
+- `pytestcov`_
+- `tox`_
+- `isort`_
+- `black`_
+- `precommit`_
 
 👋 Contribute
 -------------
@@ -250,3 +221,17 @@ This program and the accompanying materials are made available under the terms a
 .. _frozendict: https://pypi.org/project/frozendict/
 .. _Marco Sulla: https://github.com/Marco-Sulla
 .. _Guideline: https://github.com/harmouch101/frozndict/CONTRIBUTING.rst 
+.. _pyenv: https://github.com/pyenv/pyenv
+.. _poetry: https://github.com/python-poetry/poetry
+.. _pipx: https://github.com/pypa/pipx
+.. _python: https://www.python.org/
+.. _pytest: https://docs.pytest.org/en/7.1.x/
+.. _flake8: https://flake8.pycqa.org/en/latest/
+.. _coverage: https://coverage.readthedocs.io/en/6.3.2/
+.. _rstcheck: https://pypi.org/project/rstcheck/
+.. _mypy: https://mypy.readthedocs.io/en/stable/
+.. _pytestcov: https://pytest-cov.readthedocs.io/en/latest/
+.. _tox: https://tox.wiki/en/latest/
+.. _isort: https://github.com/PyCQA/isort
+.. _black: https://black.readthedocs.io/en/stable/
+.. _precommit: https://pre-commit.com/

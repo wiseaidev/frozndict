@@ -1,12 +1,15 @@
 [tool.poetry]
 name = "frozndict"
 version = "1.0.0"
-description = "a frozen dictionnary."
-authors = ["Mahmoud Harmouch <eng.mahmoudharmouch@gmail.com>"]
+description = "frozndict is a memory efficient immutable dictionary."
+authors = [
+    "Mahmoud Harmouch <eng.mahmoudharmouch@gmail.com>"
+]
 license = "GNU General Public License v3.0"
 readme = "README.rst"
 repository = "https://github.com/Harmouch101/frozndict"
-homepage = "https://harmouch101.github.io/Harmouch101/frozndict"
+homepage = ""
+documentation = ""
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
@@ -16,10 +19,12 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
 ]
 keywords = ["python", "frozendict", "frozndict"]
-packages = [ { include = "frozndict", from = "." } ]
+packages = [
+    { include = "frozndict", from = "." },
+]
 include = [
+    "LICENSE",
     "README.rst",
-    "pyproject.toml"
 ]
 
 [tool.poetry.dependencies]
