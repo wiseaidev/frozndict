@@ -9,6 +9,12 @@ repos:
         description: Forces to replace line ending by the UNIX 'lf' character.
   - repo: local
     hooks:
+      - id: pip
+        name: install dependecies
+        entry: pip install flake8 isort mypy black rstcheck
+        pass_filenames: false
+        language: system
+        types: [python]
       - id: flake8
         name: Check flake8 syntax
         entry: flake8 frozndict tests

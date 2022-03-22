@@ -32,7 +32,7 @@ Ready to contribute? Here's how to set up `frozndict` for local development.
 5. When you're done making changes, check that your changes pass tox
    tests, including testing other Python versions with make::
 
-    $ make test-all 
+    $ make test-all
 
 6. Commit your changes and push your branch to GitHub::
 

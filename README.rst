@@ -4,31 +4,31 @@ frozndict
 
 .. image:: https://coveralls.io/repos/z4r/python-coveralls/badge.png?branch=master?style=for-the-badge&logoColor=blue&color=black
    :target: https://coveralls.io/r/Harmouch101/frozndict
-   :align: left 
+   :align: left
    :alt: Coverage Report
 
 .. image:: https://img.shields.io/github/license/Harmouch101/frozndict?style=for-the-badge&logoColor=blue&color=black
    :target: https://github.com/Harmouch101/frozndict/blob/main/LICENSE
-   :align: left 
+   :align: left
    :alt: License
 
 .. image:: https://img.shields.io/pypi/v/frozndict.svg?style=for-the-badge&logoColor=blue&color=black
    :target: https://pypi.org/project/frozndict/
-   :align: left 
+   :align: left
    :alt: pypi version
 
-.. image:: https://results.pre-commit.ci/badge/github/Harmouch101/frozndict/main.svg?style=for-the-badge&logoColor=blue&color=black
+.. image:: https://results.pre-commit.ci/badge/github/Harmouch101/frozndict/main.svg
    :target: https://results.pre-commit.ci/latest/github/Harmouch101/frozndict/main
-   :align: left 
+   :align: left
    :alt: pre-commit ci status
 
-.. image:: https://circleci.com/gh/harmouch101/frozndict.svg?style=shield?style=for-the-badge&logoColor=blue&color=black
+.. image:: https://circleci.com/gh/Harmouch101/frozndict.svg?style=shield
    :target: https://circleci.com/gh/Harmouch101/frozndict
    :alt: Circle ci Build Status
 
 .. image:: https://img.shields.io/github/repo-size/Harmouch101/frozndict?style=for-the-badge&logoColor=blue&color=black
    :target: https://github.com/Harmouch101/frozndict/
-   :align: left 
+   :align: left
    :alt: Repo Size
 
 .. image:: ./assets/pydoc.png
