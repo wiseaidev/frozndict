@@ -2,6 +2,7 @@
 frozndict
 =========
 
+
 .. image:: https://coveralls.io/repos/github/Harmouch101/frozndict/badge.svg?branch=main
    :target: https://coveralls.io/github/Harmouch101/frozndict?
    :align: left
@@ -31,7 +32,10 @@ frozndict
    :target: https://github.com/Harmouch101/frozndict/
    :alt: Banner
 
+
+
 **frozndict** is a python package that acts as an alternative to frozenset, but for dictionaries.
+
 
 🛠️ Requirements
 ---------------
