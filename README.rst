@@ -10,8 +10,8 @@ frozndict
    :target: https://pypi.org/project/frozndict/
    :alt: pypi version
 
-.. image:: https://circleci.com/gh/Harmouch101/frozndict.svg
-   :target: https://circleci.com/gh/Harmouch101/frozndict
+.. image:: https://circleci.com/gh/Harmouch101/frozndict/tree/main.svg?style=svg
+   :target: https://circleci.com/gh/Harmouch101/frozndict/tree/main
    :alt: Circle ci Build Status
 
 .. image:: https://img.shields.io/github/repo-size/Harmouch101/frozndict
