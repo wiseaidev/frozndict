@@ -5,33 +5,27 @@ frozndict
 
 .. image:: https://coveralls.io/repos/github/Harmouch101/frozndict/badge.svg?branch=main
    :target: https://coveralls.io/github/Harmouch101/frozndict?
-   :align: left
    :alt: Coverage Report
 
 .. image:: https://img.shields.io/badge/License-GPLv3-blue.svg
    :target: https://github.com/Harmouch101/frozndict/blob/main/LICENSE
-   :align: left
    :alt: License
 
 .. image:: https://img.shields.io/pypi/v/frozndict.svg
    :target: https://pypi.org/project/frozndict/
-   :align: left
    :alt: pypi version
 
 .. image:: https://circleci.com/gh/Harmouch101/frozndict.svg?style=shield
    :target: https://circleci.com/gh/Harmouch101/frozndict
-   :align: left
    :alt: Circle ci Build Status
 
 .. image:: https://img.shields.io/github/repo-size/Harmouch101/frozndict
    :target: https://github.com/Harmouch101/frozndict/
-   :align: left
    :alt: Repo Size
 
 .. image:: ./assets/pydoc.png
    :target: https://github.com/Harmouch101/frozndict/
    :alt: Banner
-
 
 
 **frozndict** is a python package that acts as an alternative to frozenset, but for dictionaries.
