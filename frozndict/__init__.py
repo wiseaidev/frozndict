@@ -6,7 +6,7 @@ but for dictionaries.
 
 __author__ = """Mahmoud Harmouch"""
 __email__ = "eng.mahmoudharmouch@gmail.com"
-__version__ = "1.0.8"
+__version__ = "1.0.9"
 
 from frozndict.frozendict import (
     frozendict,
