@@ -2,12 +2,12 @@
 frozndict
 =========
 
-.. image:: https://coveralls.io/repos/Harmouch101/frozndict/badge.png?branch=main
+.. image:: https://coveralls.io/r/Harmouch101/frozndict/badge.png?branch=main
    :target: https://coveralls.io/r/Harmouch101/frozndict
    :align: left
    :alt: Coverage Report
 
-.. image:: https://img.shields.io/github/license/Harmouch101/frozndict
+.. image:: https://img.shields.io/badge/License-GPLv3-blue.svg
    :target: https://github.com/Harmouch101/frozndict/blob/main/LICENSE
    :align: left
    :alt: License
