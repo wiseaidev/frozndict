@@ -181,7 +181,7 @@ Notice :code:`my_frozen_dict` takes less space in memory than :code:`frozen_dict
 🎉 Credits
 ----------
 
-These following projects were used to build and test :code:`frozndict`.
+The following projects were used to build and test :code:`frozndict`.
 
 - `python`_
 - `poetry`_
