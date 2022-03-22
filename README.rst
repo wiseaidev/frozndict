@@ -2,11 +2,6 @@
 frozndict
 =========
 
-
-.. image:: https://coveralls.io/repos/github/Harmouch101/frozndict/badge.svg?branch=main
-   :target: https://coveralls.io/github/Harmouch101/frozndict?
-   :alt: Coverage Report
-
 .. image:: https://img.shields.io/badge/License-GPLv3-blue.svg
    :target: https://github.com/Harmouch101/frozndict/blob/main/LICENSE
    :alt: License
@@ -15,7 +10,7 @@ frozndict
    :target: https://pypi.org/project/frozndict/
    :alt: pypi version
 
-.. image:: https://circleci.com/gh/Harmouch101/frozndict.svg?style=shield
+.. image:: https://circleci.com/gh/Harmouch101/frozndict.svg
    :target: https://circleci.com/gh/Harmouch101/frozndict
    :alt: Circle ci Build Status
 
@@ -23,7 +18,7 @@ frozndict
    :target: https://github.com/Harmouch101/frozndict/
    :alt: Repo Size
 
-.. image:: ./assets/pydoc.png
+.. image:: https://raw.githubusercontent.com/harmouch101/frozndict/main/assets/pydoc.png
    :target: https://github.com/Harmouch101/frozndict/
    :alt: Banner
 
