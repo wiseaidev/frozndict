@@ -56,7 +56,6 @@ jobs:
           path: .tox/test/tmp/reports
 
   build_deploy:
-    docker:
     <<: *container_python
     steps:
       # Get the code

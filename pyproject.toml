@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "frozndict"
-version = "0.1.0"
+version = "1.0.0"
 description = "a frozen dictionnary."
 authors = ["Mahmoud Harmouch <eng.mahmoudharmouch@gmail.com>"]
 license = "GNU General Public License v3.0"
