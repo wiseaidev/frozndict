@@ -2,8 +2,8 @@
 frozndict
 =========
 
-.. image:: https://coveralls.io/r/Harmouch101/frozndict/badge.png?branch=main
-   :target: https://coveralls.io/r/Harmouch101/frozndict
+.. image:: https://coveralls.io/repos/github/Harmouch101/frozndict/badge.svg?branch=main
+   :target: https://coveralls.io/github/Harmouch101/frozndict?
    :align: left
    :alt: Coverage Report
 
@@ -19,6 +19,7 @@ frozndict
 
 .. image:: https://circleci.com/gh/Harmouch101/frozndict.svg?style=shield
    :target: https://circleci.com/gh/Harmouch101/frozndict
+   :align: left
    :alt: Circle ci Build Status
 
 .. image:: https://img.shields.io/github/repo-size/Harmouch101/frozndict

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "frozndict"
-version = "1.0.2"
+version = "1.0.3"
 description = "frozndict is a memory efficient immutable dictionary."
 authors = [
     "Mahmoud Harmouch <eng.mahmoudharmouch@gmail.com>"
