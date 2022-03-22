@@ -1,6 +1,9 @@
 # Byte-compiled files
 __pycache__/
 
+# Distribution / packaging
+dist/
+
 # Unit test / coverage reports
 .tox/
 .coverage
