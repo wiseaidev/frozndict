@@ -236,6 +236,11 @@ These following projects were used to build and test :code:`frozndict`. **A Big 
       <li><a  href="https://pre-commit.com/"><code>pre-commit</code></a></li>
    </ul>
 
+👋 Contribute
+-------------
+
+If you are looking for a way to contribute to the project, please refer to the `Guideline`_.
+
 📝 License
 ----------
 
@@ -244,3 +249,4 @@ This program and the accompanying materials are made available under the terms a
 .. _GNU GENERAL PUBLIC LICENSE: http://www.gnu.org/licenses/
 .. _frozendict: https://pypi.org/project/frozendict/
 .. _Marco Sulla: https://github.com/Marco-Sulla
+.. _Guideline: https://github.com/harmouch101/frozndict/CONTRIBUTING.rst 

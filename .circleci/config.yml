@@ -18,20 +18,36 @@ aliases:
         sudo pip3 install tox
   - &run_task_install_dependencies_poetry
     run:
-      name: Setup & Install Poetry
+      name: Setup, install Poetry & dependencies
       command: |
         curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_UNINSTALL=1 python -
         curl -sSL https://install.python-poetry.org | python3 -
         poetry env use 3.9.10
         poetry install
+  - &build_upload_to_pipy
+    run:
+      name: Create the distribution files & Upload to PyPI
+      command: |
+        # Relies on the PYPI_USERNAME and PYPI_PASSWORD environment variables configured at:
+        #   https://circleci.com/gh/harmouch101/frozndict/edit#env-vars
+        poetry publish --build --username "${PYPI_USERNAME}" --password "${PYPI_PASSWORD}" --no-interaction
 
 jobs:
   testing:
     <<: *container_python
     steps:
+      # Get the code
       - checkout
+      # Cache
+      - restore_cache:
+          keys:
+            - deps-{{ checksum "poetry.lock" }}
       - *run_task_install_tox_dependencies
       - *run_task_install_dependencies_poetry
+      - save_cache:
+          key: deps-{{ checksum "poetry.lock" }}
+          paths:
+            - /home/circleci/.cache/pypoetry/virtualenvs
       - run:
           name: run tests
           command: |
@@ -39,8 +55,25 @@ jobs:
       - store_test_results:
           path: .tox/test/tmp/reports
 
+  build_deploy:
+    docker:
+    <<: *container_python
+    steps:
+      # Get the code
+      - checkout
+      # Cache
+      - restore_cache:
+          keys:
+            - deps-{{ checksum "poetry.lock" }}
+      - *build_upload_to_pipy
+      - save_cache:
+          key: deps-{{ checksum "poetry.lock" }}
+          paths:
+            - /home/circleci/.cache/pypoetry/virtualenvs
+
 workflows:
   version: 2
-  build_and_test:
+  build_test_deploy:
     jobs:
       - testing
+      - build_deploy
