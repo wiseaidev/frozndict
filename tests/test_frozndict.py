@@ -31,7 +31,7 @@ from frozndict import (
 
 
 def test_version():
-    assert __version__ == "1.0.9"
+    assert __version__ == "1.0.10"
 
 
 @pytest.fixture
