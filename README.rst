@@ -10,13 +10,13 @@ frozndict
    :target: https://pypi.org/project/frozndict/
    :alt: pypi version
 
-.. image:: https://circleci.com/gh/Harmouch101/frozndict/tree/main.svg?style=svg
-   :target: https://circleci.com/gh/Harmouch101/frozndict/tree/main
-   :alt: Circle ci Build Status
-
 .. image:: https://img.shields.io/github/repo-size/Harmouch101/frozndict
    :target: https://github.com/Harmouch101/frozndict/
    :alt: Repo Size
+
+.. image:: https://circleci.com/gh/Harmouch101/frozndict/tree/main.svg?style=svg
+   :target: https://circleci.com/gh/Harmouch101/frozndict/tree/main
+   :alt: Circle ci Build Status
 
 .. image:: https://raw.githubusercontent.com/harmouch101/frozndict/main/assets/pydoc.png
    :target: https://github.com/Harmouch101/frozndict/
