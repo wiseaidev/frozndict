@@ -1,37 +1,21 @@
-"""
-frozndict is a python package that acts as an alternative to frozenset,
-but for dictionaries.
-Copyright (C) 2022  Mahmoud Harmouch
+# Copyright 2026 Mahmoud Harmouch.
+#
+# Licensed under the MIT license
+# <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+# option. This file may not be copied, modified, or distributed
+# except according to those terms.
+# pylint: disable=missing-function-docstring,redefined-outer-name
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
-
+from operator import ior
 
 import pytest
 
-from operator import (
-    ior,
-)
-
-from frozndict import (
-    __version__,
-    frozendict,
-)
+# pyrefly: ignore [missing-import]
+from frozndict import __version__, frozendict
 
 
 def test_version():
-    assert __version__ == "1.0.11"
+    assert __version__ == "2.0.0"
 
 
 @pytest.fixture
@@ -120,3 +104,30 @@ def test_ior(frozen_dict, frozen_empty_dict):
     assert result is not None
     assert result == frozen_dict
     assert result != frozen_empty_dict
+
+
+def test_hash_consistency():
+    d1 = frozendict(a=1, b=2)
+    d2 = frozendict(b=2, a=1)
+    assert hash(d1) == hash(d2)
+    assert d1 == d2
+
+
+def test_fromkeys():
+    d = frozendict.fromkeys(["a", "b"], 69)
+    assert d["a"] == 69
+    assert d["b"] == 69
+    assert len(d) == 2
+
+
+def test_pretty_repr():
+    d = frozendict(a=1)
+    assert "a" in d.pretty_repr()
+
+
+# Copyright 2026 Mahmoud Harmouch.
+#
+# Licensed under the MIT license
+# <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+# option. This file may not be copied, modified, or distributed
+# except according to those terms.
