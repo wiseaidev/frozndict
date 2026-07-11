@@ -1,0 +1,28 @@
+name: 🦀 Rust Tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  rust-test:
+    name: 🔬 Cargo Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🦀 Install Rust Toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: 🏗️ Build
+        run: cargo build --verbose
+
+      - name: ✅ Run Rust Tests (unit + integration + doctests)
+        run: cargo test --all-features --verbose
