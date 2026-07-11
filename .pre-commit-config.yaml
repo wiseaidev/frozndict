@@ -1,41 +1,49 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.6.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: mixed-line-ending
-        args: ['--fix=lf']
-        description: Forces to replace line ending by the UNIX 'lf' character.
-  - repo: local
+        args: ["--fix=lf"]
+
+  - repo: https://github.com/psf/black
+    rev: 24.4.2
+    hooks:
+      - id: black
+        language_version: python3.12
+
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.0.0
     hooks:
       - id: flake8
-        name: Check flake8 syntax
-        entry: flake8 frozndict tests
-        pass_filenames: false
+        additional_dependencies: [flake8-bugbear]
+        args: ["--max-line-length=88", "--extend-ignore=E203"]
+
+  - repo: https://github.com/PyCQA/pylint
+    rev: v3.2.5
+    hooks:
+      - id: pylint
+        args: ["--disable=C0114,C0115,C0116,W0212,C0415,E0401,W0621"]
+
+  - repo: local
+    hooks:
+      - id: cargo-fmt
+        name: 🦀 Rust Format Check
+        entry: cargo fmt --all -- --check
         language: system
-        types: [python]
-      - id: isort
-        name: Sort imports alphabetically
-        entry: isort frozndict tests --check-only --diff
         pass_filenames: false
+        types: [rust]
+
+      - id: cargo-clippy
+        name: 🧹 Rust Clippy
+        entry: cargo clippy --features python --tests -- -D warnings
         language: system
-        types: [python]
-      - id: mypy
-        name: Check mypy static types match
-        entry: mypy -p frozndict
         pass_filenames: false
-        language: system
-        types: [python]
-      - id: black
-        name: Run black code formatter
-        entry: black frozndict --check
-        pass_filenames: false
-        language: system
-        types: [python]
-      - id: rstcheck
-        name: RChecks syntax of reStructuredText
-        entry: rstcheck README.rst
-        pass_filenames: false
-        language: system
-        types: [python]
+        types: [rust]

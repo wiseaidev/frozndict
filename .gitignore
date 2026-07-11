@@ -1,13 +1,23 @@
 # Byte-compiled files
 __pycache__/
+*.py[cod]
+*~
+*.so
 
 # Distribution / packaging
 dist/
+build/
+*.egg-info/
+.eggs/
+
+# Rust
+target/
 
 # Unit test / coverage reports
-.tox/
+.pytest_cache/
 .coverage
 *.cover
+htmlcov/
 
 # pyenv
 .python-version
@@ -19,6 +29,10 @@ dist/
 .venv
 venv/
 ENV/
+
+# IDEs
+.idea/
+.vscode/
 
 # mypy
 .mypy_cache/
