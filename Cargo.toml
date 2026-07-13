@@ -1,13 +1,14 @@
 [package]
 name = "frozndict"
-version = "2.0.0"
+version = "2.1.0"
 authors = ["Mahmoud Harmouch <oss@wiseai.dev>"]
 edition = "2024"
 description = "🧊 A memory-efficient, fully immutable dictionary for Python, powered by Rust."
 license = "MIT"
-homepage = "https://github.com/wiseaidotdev/frozndict"
+readme = "README.rst"
+homepage = "https://github.com/wiseaidev/frozndict"
 documentation = "https://docs.rs/frozndict"
-repository = "https://github.com/wiseaidotdev/frozndict"
+repository = "https://github.com/wiseaidev/frozndict"
 keywords = ["frozendict", "immutable", "dictionary", "python", "hashmap"]
 categories = [
     "data-structures",
@@ -36,6 +37,7 @@ rustdoc-args = ["--cfg", "docsrs"]
 [dependencies]
 pyo3 = { version = "0.29.0", features = ["extension-module"], optional = true }
 ahash = "0.8.12"
+once_cell = "1.21.4"
 
 [features]
 default = []

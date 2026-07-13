@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-# pylint: disable=missing-function-docstring,redefined-outer-name
-# pylint: disable=invalid-name,line-too-long
 # Copyright 2026 Mahmoud Harmouch.
 #
 # Licensed under the MIT license
@@ -9,55 +7,31 @@
 # except according to those terms.
 
 """
-Benchmark script for frozndict vs. competing immutable mapping libraries.
+Comprehensive benchmark for frozndict vs frozendict (C) vs dict vs immutables.Map.
 
-Measures:
-  - Construction time (kwargs, dict, pairs)
-  - Single key lookup
-  - Hash computation (__hash__)
-  - Equality check (__eq__)
-  - Iteration (keys, values, items)
-  - Memory footprint (sys.getsizeof)
-
-Requirements:
-    pip install frozendict pytest-benchmark
+Measures timing with statistical filtering (minimum + 3-sigma outlier removal)
+and reports time-per-operation alongside the standard deviation around the
+minimum.  Each benchmark is run for at least ``bench_time`` seconds to ensure
+reliable results.
 
 Usage::
 
-    python benchmarks/benchmark.py
+    python benchmarks/benchmark.py          # full run (~10 s per benchmark)
+    python benchmarks/benchmark.py 1        # one-shot (faster, less accurate)
 
-Or for a one-liner comparison table::
+Requirements::
 
-    python benchmarks/benchmark.py --quick
-
-Why frozndict is superior
--------------------------
-1. **Zero-overhead storage**: a single contiguous heap allocation
-   (`Box<[(key, value)]>` in Rust) - no hash-table buckets, no linked-list
-   nodes, no load-factor wasted space.
-
-2. **O(1) repeated hashing**: the hash is computed once at construction
-   via XOR-combining `hash((k, v))` pairs and cached as an `isize`.
-   Every subsequent `hash(d)` call is a single register read.
-
-3. **Rust-level immutability**: mutation is rejected inside the Rust binary,
-   not via Python descriptor tricks.  There is no monkey-patchable
-   `__setattr__` path.
-
-4. **Cache-friendly iteration**: values are stored in a flat slice so
-   sequential reads stay in L1/L2 cache.  Hash-table-based alternatives
-   scatter entries across buckets.
-
-5. **Minimal Python overhead**: the extension module adds exactly one
-   `cdylib` and zero pure-Python layers.
+    pip install frozendict immutables
 """
 
 import sys
 import timeit
-from typing import Any
+import uuid
+from copy import copy
+from math import sqrt
+from time import time
 
 try:
-    # pyrefly: ignore [missing-import]
     from frozndict import frozendict as RustFrozenDict
 except ImportError:
     RustFrozenDict = None
@@ -67,182 +41,350 @@ try:
 except ImportError:
     CFrozenDict = None
 
-TITLE_WIDTH = 42
-COL_WIDTH = 16
-SIZES = [1, 10, 50, 200]
-REPEAT = 5
-NUMBER = 10_000
+try:
+    # pyrefly: ignore [missing-import]
+    import immutables
+
+    ImmutableMap = immutables.Map  # pylint: disable=invalid-name
+except ImportError:
+    ImmutableMap = None  # pylint: disable=invalid-name
 
 
-def _hr() -> str:
-    return "-" * (TITLE_WIDTH + COL_WIDTH * 3)
+def mindev(data, xbar=None):
+    """
+    Compute the standard deviation relative to the **minimum** of ``data``.
+
+    Unlike a classical standard deviation (which uses the arithmetic mean),
+    this function uses ``xbar`` (defaulting to ``min(data)``) as the reference
+    point.  This is appropriate for benchmark timing data where the minimum
+    represents the best achievable time and the distribution is right-skewed.
+
+    Parameters
+    ----------
+    data:
+        Non-empty sequence of floats.
+    xbar:
+        Reference value.  Defaults to ``min(data)``.
+
+    Returns
+    -------
+    float
+        Standard deviation around ``xbar``.
+    """
+    if not data:
+        raise ValueError("No data")
+    if xbar is None:
+        xbar = min(data)
+    sigma2 = sum((x - xbar) ** 2 for x in data)
+    n = max(len(data) - 1, 1)
+    return sqrt(sigma2 / n)
 
 
-def _header() -> str:
-    cols = (
-        f"{'frozndict (Rust)':>{COL_WIDTH}} "
-        f"{'frozendict (C)':>{COL_WIDTH}} "
-        f"{'dict':>{COL_WIDTH}}"
-    )
-    return f"\n{'Benchmark':<{TITLE_WIDTH}}{cols}\n{_hr()}"
+def autorange(stmt, setup="pass", globals=None, ratio=1000, bench_time=2, number=None):
+    # pylint: disable=too-many-arguments,too-many-locals,redefined-builtin
+    """
+    Adaptively time ``stmt``, filtering outliers via 3-sigma rejection.
+
+    The number of inner loop iterations is chosen so that the total time of
+    one repeat is roughly ``1/ratio`` of the ``autorange`` estimate.  The
+    benchmark then repeats until ``bench_time`` seconds elapse.  Data points
+    more than 3 standard deviations above the current minimum are removed
+    iteratively.
+
+    Parameters
+    ----------
+    stmt:
+        String statement to benchmark (forwarded to :class:`timeit.Timer`).
+    setup:
+        Setup code run once per :class:`timeit.Timer` instance.
+    globals:
+        Global namespace for both ``stmt`` and ``setup``.
+    ratio:
+        Divisor applied to the :meth:`Timer.autorange` loop count to derive
+        the inner loop count used for each data point.
+    bench_time:
+        Minimum wall-clock seconds to collect data.
+    number:
+        If provided, forces the inner loop count and runs only one repeat.
+
+    Returns
+    -------
+    tuple[float, float]
+        ``(min_per_call, sigma_per_call)`` both in seconds.
+    """
+    if setup is None:
+        setup = "pass"
+
+    t = timeit.Timer(stmt=stmt, setup=setup, globals=globals)
+    break_immediately = False
+
+    if number is None:
+        a = t.autorange()
+        number_temp = a[0]
+        number = max(int(number_temp / ratio), 1)
+        repeat = max(int(number_temp / number), 1)
+    else:
+        repeat = 1
+        break_immediately = True
+
+    data_min = list(t.repeat(number=number, repeat=repeat))
+    bench_start = time()
+
+    while True:
+        data_min.extend(t.repeat(number=number, repeat=repeat))
+        if break_immediately or time() - bench_start > bench_time:
+            break
+
+    data_min.sort()
+    xbar = data_min[0]
+    i = 0
+    while i < len(data_min):
+        i = len(data_min)
+        sigma = mindev(data_min, xbar=xbar)
+        for i2 in range(2, len(data_min)):
+            if data_min[i2] - xbar > 3 * sigma:
+                break
+        k = max(i, 5)
+        del data_min[k:]
+
+    return (min(data_min) / number, mindev(data_min, xbar=xbar) / number)
 
 
-def _time_us(
-    stmt: str, globs: dict, number: int = NUMBER, repeat: int = REPEAT
-) -> float:
-    times = timeit.repeat(stmt=stmt, globals=globs, number=number, repeat=repeat)
-    return min(times) / number * 1_000_000
+def get_uuid():
+    """Return a new random UUID string."""
+    return str(uuid.uuid4())
 
 
-def _mem(obj: Any) -> int:
-    return sys.getsizeof(obj)
+PRINT_TPL = (
+    "Name: {name: <26} Size: {size: >4}; Keys: {keys: >3}; "
+    "Type: {type: >12}; Time: {time:.2e}; Sigma: {sigma:.0e}"
+)
+
+BENCH_HASH_NAME = "hash"
+BENCH_COPY_NAME = "copy"
+BENCH_SET_NAME = "set"
+BENCH_DELETE_NAME = "delete"
+BENCH_FROMKEYS_NAME = "fromkeys"
+BENCH_CONSTR_KWARGS_NAME = "constructor(kwargs)"
+
+BENCHMARKS = (
+    {
+        "name": "constructor(d)",
+        "code": "klass(d)",
+        "setup": "klass = type(o)",
+    },
+    {
+        "name": BENCH_CONSTR_KWARGS_NAME,
+        "code": "klass(**d)",
+        "setup": "klass = type(o)",
+    },
+    {
+        "name": "constructor(seq2)",
+        "code": "klass(v)",
+        "setup": "klass = type(o); v = tuple(d.items())",
+    },
+    {
+        "name": "constructor(o)",
+        "code": "klass(o)",
+        "setup": "klass = type(o)",
+    },
+    {
+        "name": BENCH_COPY_NAME,
+        "code": None,
+        "setup": "pass",
+    },
+    {
+        "name": "o == o",
+        "code": "o == o",
+        "setup": "pass",
+    },
+    {
+        "name": "for x in o",
+        "code": "for _ in o: pass",
+        "setup": "pass",
+    },
+    {
+        "name": "for x in o.values()",
+        "code": "for _ in values: pass",
+        "setup": "values = o.values()",
+    },
+    {
+        "name": "for x in o.items()",
+        "code": "for _ in items: pass",
+        "setup": "items = o.items()",
+    },
+    {
+        "name": "pickle.dumps",
+        "code": "dumps(o, protocol=-1)",
+        "setup": "from pickle import dumps",
+    },
+    {
+        "name": "pickle.loads",
+        "code": "loads(dump)",
+        "setup": "from pickle import loads, dumps; dump = dumps(o, protocol=-1)",
+    },
+    {
+        "name": BENCH_FROMKEYS_NAME,
+        "code": "fromkeys(keys)",
+        "setup": "fromkeys = type(o).fromkeys; keys = list(o.keys())",
+    },
+    {
+        "name": BENCH_SET_NAME,
+        "code": None,
+        "setup": "val = get_uuid()",
+    },
+    {
+        "name": BENCH_DELETE_NAME,
+        "code": None,
+        "setup": "pass",
+    },
+    {
+        "name": BENCH_HASH_NAME,
+        "code": "hash(o)",
+        "setup": "pass",
+    },
+)
 
 
-def _fmt(val: float | None, unit: str = "µs") -> str:
-    if val is None:
-        return f"{'N/A':>{COL_WIDTH}}"
-    return f"{val:>{COL_WIDTH - len(unit) - 1}.3f} {unit}"
+def main(number):
+    # pylint: disable=too-many-locals,too-many-branches
+    # pylint: disable=too-many-statements,too-many-nested-blocks
+    """
+    Run the full benchmark matrix and print results to stdout.
 
+    Iterates over all benchmark definitions, dictionary sizes, and key types.
+    Each combination is timed for at least ``bench_time`` seconds using
+    :func:`autorange` with outlier filtering.
 
-def _fmt_mem(val: int | None) -> str:
-    if val is None:
-        return f"{'N/A':>{COL_WIDTH}}"
-    return f"{val:>{COL_WIDTH - 2}} B "
+    Parameters
+    ----------
+    number:
+        Fixed inner-loop count passed to :func:`autorange`.  ``None`` means
+        the count is determined automatically.
+    """
+    dictionary_sizes = (5, 1000)
+    sep_n = 80
+    sep_major = "#"
+    sep_minor = "/"
 
+    str_key = "12323f29-c31f-478c-9b15-e7acc5354df9"
+    int_key = max(dictionary_sizes[0] - 2, 0)
 
-def run_construction_benchmarks() -> None:
-    print(_header())
-    for n in SIZES:
-        data = {f"key_{i}": i for i in range(n)}
+    dict_collection = []
+    for n in dictionary_sizes:
+        d1 = {}
+        d2 = {}
+        for i in range(n - 1):
+            d1[get_uuid()] = get_uuid()
+            d2[i] = i
+        d1[str_key] = get_uuid()
+        d2[999] = 999
 
-        globs = {"data": data, "dict": dict}
-        if RustFrozenDict:
-            globs["RustFrozenDict"] = RustFrozenDict
-        if CFrozenDict:
-            globs["CFrozenDict"] = CFrozenDict
+        entries = [(d1, str_key, "str"), (d2, int_key, "int")]
+        dict_collection.append((n, entries))
 
-        rust_t = _time_us("RustFrozenDict(data)", globs) if RustFrozenDict else None
-        c_t = _time_us("CFrozenDict(data)", globs) if CFrozenDict else None
-        dict_t = _time_us("dict(data)", globs)
+    for benchmark in BENCHMARKS:
+        print(sep_major * sep_n)
 
-        label = f"  construct (n={n:<3})"
-        print(f"{label:<{TITLE_WIDTH}}{_fmt(rust_t)}{_fmt(c_t)}{_fmt(dict_t)}")
-    print()
+        for _n, entries in dict_collection:
+            for plain_dict, one_key, key_label in entries:
+                if benchmark["name"] == BENCH_CONSTR_KWARGS_NAME and key_label == "int":
+                    continue
 
+                candidates = []
+                if dict is not None:
+                    candidates.append((plain_dict, "dict"))
+                if RustFrozenDict is not None:
+                    candidates.append((RustFrozenDict(plain_dict), "FrozenDict"))
+                if CFrozenDict is not None:
+                    candidates.append((CFrozenDict(plain_dict), "frozendict"))
+                if ImmutableMap is not None:
+                    candidates.append((ImmutableMap(plain_dict), "Map"))
 
-def run_lookup_benchmarks() -> None:
-    for n in SIZES:
-        data = {f"key_{i}": i for i in range(n)}
-        last_key = f"key_{n - 1}"
+                print(sep_minor * sep_n)
+                for o, _ in candidates:
+                    if benchmark["name"] == BENCH_HASH_NAME and isinstance(o, dict):
+                        continue
 
-        rd = RustFrozenDict(data) if RustFrozenDict else None
-        cd = CFrozenDict(data) if CFrozenDict else None
-        dd = dict(data)
+                    if benchmark["name"] == BENCH_SET_NAME:
+                        if isinstance(o, dict):
+                            benchmark["code"] = "o.copy()[one_key] = val"
+                        else:
+                            benchmark["code"] = (
+                                "o.set(one_key, val)"
+                                if type(o).__name__ == "Map"
+                                else "type(o)({**o, one_key: val})"
+                            )
 
-        globs = {"last_key": last_key, "rd": rd, "cd": cd, "dd": dd}
+                    if benchmark["name"] == BENCH_DELETE_NAME:
+                        if isinstance(o, dict):
+                            benchmark["code"] = "del o.copy()[one_key]"
+                        else:
+                            benchmark["code"] = (
+                                "o.delete(one_key)"
+                                if type(o).__name__ == "Map"
+                                else "{k: v for k, v in o.items() if k != one_key}"
+                            )
 
-        rust_t = _time_us("rd[last_key]", globs) if rd is not None else None
-        c_t = _time_us("cd[last_key]", globs) if cd is not None else None
-        dict_t = _time_us("dd[last_key]", globs)
+                    if benchmark["name"] == BENCH_COPY_NAME:
+                        if type(o).__name__ == "Map":
+                            benchmark["code"] = "copy(o)"
+                        else:
+                            benchmark["code"] = "o.copy()"
 
-        label = f"  lookup worst-case (n={n:<3})"
-        print(f"{label:<{TITLE_WIDTH}}{_fmt(rust_t)}{_fmt(c_t)}{_fmt(dict_t)}")
-    print()
+                    if (
+                        benchmark["name"] == BENCH_FROMKEYS_NAME
+                        and type(o).__name__ == "Map"
+                    ):
+                        continue
 
+                    if benchmark["name"] in (
+                        "pickle.dumps",
+                        "pickle.loads",
+                    ) and isinstance(o, dict):
+                        continue
 
-def run_hash_benchmarks() -> None:
-    for n in SIZES:
-        data = {f"key_{i}": i for i in range(n)}
+                    bench_res = autorange(
+                        stmt=benchmark["code"],
+                        setup=benchmark["setup"],
+                        globals={
+                            "o": copy(o) if isinstance(o, dict) else o,
+                            "get_uuid": get_uuid,
+                            "d": plain_dict.copy(),
+                            "one_key": one_key,
+                            "copy": copy,
+                        },
+                        number=number,
+                    )
 
-        rd = RustFrozenDict(data) if RustFrozenDict else None
-        cd = CFrozenDict(data) if CFrozenDict else None
+                    print(
+                        PRINT_TPL.format(
+                            name=f"`{benchmark['name']}`; ",
+                            keys=key_label,
+                            size=len(o),
+                            type=type(o).__name__,
+                            time=bench_res[0],
+                            sigma=bench_res[1],
+                        )
+                    )
 
-        globs = {"hash": hash, "rd": rd, "cd": cd}
-
-        rust_t = _time_us("hash(rd)", globs) if rd is not None else None
-        c_t = _time_us("hash(cd)", globs) if cd is not None else None
-
-        dict_col = f"{'not hashable':>{COL_WIDTH}}"
-
-        label = f"  hash (n={n:<3})"
-        print(f"{label:<{TITLE_WIDTH}}{_fmt(rust_t)}{_fmt(c_t)}{dict_col}")
-    print()
-
-
-def run_iteration_benchmarks() -> None:
-    for n in SIZES:
-        data = {f"key_{i}": i for i in range(n)}
-
-        rd = RustFrozenDict(data) if RustFrozenDict else None
-        cd = CFrozenDict(data) if CFrozenDict else None
-        dd = dict(data)
-
-        globs = {"list": list, "rd": rd, "cd": cd, "dd": dd}
-
-        rust_t = _time_us("list(rd.keys())", globs) if rd is not None else None
-        c_t = _time_us("list(cd.keys())", globs) if cd is not None else None
-        dict_t = _time_us("list(dd.keys())", globs)
-
-        label = f"  iter keys (n={n:<3})"
-        print(f"{label:<{TITLE_WIDTH}}{_fmt(rust_t)}{_fmt(c_t)}{_fmt(dict_t)}")
-    print()
-
-
-def run_memory_benchmarks() -> None:
-    print(f"\n{'Memory footprint':=^{TITLE_WIDTH + COL_WIDTH * 3}}")
-    header = (
-        f"{'Benchmark':<{TITLE_WIDTH}}{'frozndict':>{COL_WIDTH}}"
-        f"{'frozendict':>{COL_WIDTH}}{'dict':>{COL_WIDTH}}"
-    )
-    print(header)
-    print(_hr())
-    for n in SIZES:
-        data = {f"key_{i}": i for i in range(n)}
-
-        rust_mem = _mem(RustFrozenDict(data)) if RustFrozenDict else None
-        c_mem = _mem(CFrozenDict(data)) if CFrozenDict else None
-        dict_mem = _mem(dict(data))
-
-        label = f"  sizeof (n={n:<3})"
-        print(
-            f"{label:<{TITLE_WIDTH}}{_fmt_mem(rust_mem)}"
-            f"{_fmt_mem(c_mem)}{_fmt_mem(dict_mem)}"
-        )
-    print()
-
-
-def main() -> None:
-    print("=" * (TITLE_WIDTH + COL_WIDTH * 3))
-    print("  frozndict Benchmark Suite")
-    print("  Comparing: frozndict (Rust/PyO3) vs frozendict (C ext) vs dict")
-    print("=" * (TITLE_WIDTH + COL_WIDTH * 3))
-
-    print(f"\n{'Construction time':=^{TITLE_WIDTH + COL_WIDTH * 3}}")
-    run_construction_benchmarks()
-
-    print(f"\n{'Key lookup (worst-case)':=^{TITLE_WIDTH + COL_WIDTH * 3}}")
-    run_lookup_benchmarks()
-
-    print(f"\n{'Hash computation (cached)':=^{TITLE_WIDTH + COL_WIDTH * 3}}")
-    run_hash_benchmarks()
-
-    print(f"\n{'Iteration - keys()':=^{TITLE_WIDTH + COL_WIDTH * 3}}")
-    run_iteration_benchmarks()
-
-    run_memory_benchmarks()
-
-    print(
-        "\nKey findings\n"
-        "------------\n"
-        "• hash()   - O(1) for frozndict (cached at construction);\n"
-        "             O(n) for every call in others.\n"
-        "• Memory   - frozndict uses a single flat allocation;\n"
-        "             dict/frozendict carry hash-table overhead.\n"
-        "• Safety   - frozndict mutation is blocked at the Rust binary\n"
-        "             level, not via Python hooks.\n"
-        "• Usable as dict keys and set members out of the box.\n"
-    )
+    print(sep_major * sep_n)
 
 
 if __name__ == "__main__":
-    main()
+    NUM = None
+    ARGV = sys.argv
+    LEN_ARGV = len(ARGV)
+    MAX_POSITIONAL_ARGS = 1
+    MAX_LEN_ARGV = MAX_POSITIONAL_ARGS + 1
+
+    if LEN_ARGV > MAX_LEN_ARGV:
+        raise ValueError(
+            f"{__name__} must not accept more than "
+            f"{MAX_POSITIONAL_ARGS} positional command-line parameters"
+        )
+
+    if LEN_ARGV == MAX_LEN_ARGV:
+        NUM = int(ARGV[MAX_POSITIONAL_ARGS])
+
+    main(NUM)

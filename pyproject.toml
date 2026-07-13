@@ -26,10 +26,10 @@ classifiers = [
 dynamic = ["version"]
 
 [project.urls]
-Homepage = "https://github.com/wiseaidotdev/frozndict"
-Repository = "https://github.com/wiseaidotdev/frozndict"
+Homepage = "https://github.com/wiseaidev/frozndict"
+Repository = "https://github.com/wiseaidev/frozndict"
 Documentation = "https://docs.rs/frozndict"
-Issues = "https://github.com/wiseaidotdev/frozndict/issues"
+Issues = "https://github.com/wiseaidev/frozndict/issues"
 
 [tool.maturin]
 features = ["python"]
