@@ -20,7 +20,7 @@
 //! |----------|--------|
 //! | Storage layout | `Box<[(K, V)]>` - single contiguous allocation |
 //! | Lookup complexity | O(log n) - binary search over sorted keys |
-//! | Memory overhead | Zero: exactly `n × (size_of::<K>() + size_of::<V>())` bytes |
+//! | Memory overhead | Zero: exactly `n -x (size_of::<K>() + size_of::<V>())` bytes |
 //! | Cache behaviour | Excellent: sequential memory access during search |
 //! | Allocation count | One at construction time; none afterwards |
 //! | Mutation | Impossible: no `&mut self` method is exposed |
@@ -28,7 +28,7 @@
 //! Binary search outperforms hash-map lookups for maps with fewer than ~64
 //! entries because it avoids hashing and pointer-chasing overhead.  For larger
 //! maps the trade-off is still acceptable given the memory savings: a hash map
-//! typically occupies 1.5–2× more memory than it needs.
+//! typically occupies 1.5-2x more memory than it needs.
 //!
 //! The hash of the entire map is computed once during construction and stored
 //! as a `u64` field, making repeated `__hash__()` calls O(1).
