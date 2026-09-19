@@ -1,5 +1,5 @@
 Name:           frozendict
-Version:        2.1.0
+Version:        2.1.1
 Release:        1%{?dist}
 Summary:        Blazingly fast, immutable dictionary Rust library
 License:        MIT

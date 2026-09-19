@@ -13,7 +13,7 @@ History
 * **View Improvements**: Fixed `isdisjoint` and set operators (`&`, `|`, `-`, `^`) for views.
 * **Correctness**: Ensured order-independent deep equality (`__eq__`) and fixed edge cases causing test failures.
 
-2.1.0 (2026-07-13)
+2.1.1 (2026-07-13)
 ------------------
 
 * **Insertion ordering**: keys, values, and items now iterate in

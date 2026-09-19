@@ -8,7 +8,7 @@ language bindings.
 
 ```toml
 [dependencies]
-frozendict = "2.1.0"
+frozendict = "2.1.1"
 ```
 
 ## 🗂 Module Structure

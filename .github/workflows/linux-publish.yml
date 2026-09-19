@@ -25,6 +25,8 @@ jobs:
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
 
       - name: Rust cache
         uses: swatinem/rust-cache@v2
@@ -54,6 +56,8 @@ jobs:
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
 
       - name: Rust cache
         uses: swatinem/rust-cache@v2
