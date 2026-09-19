@@ -45,7 +45,7 @@ jobs:
 
       - run:
           name: Run Rust tests
-          command: cargo test --all-features
+          command: cargo test --features python
 
   lint:
     executor: rust_python

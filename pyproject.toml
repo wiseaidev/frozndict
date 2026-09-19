@@ -6,7 +6,7 @@ build-backend = "maturin"
 name = "frozndict"
 requires-python = ">=3.12"
 description = "🧊 A memory-efficient, fully immutable dictionary for Python, powered by Rust."
-readme = "README.rst"
+readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "Mahmoud Harmouch", email = "oss@wiseai.dev" }]
 keywords = ["frozendict", "immutable", "dictionary", "hashmap", "rust"]

@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	cargo build --release
+
+override_dh_auto_install:
+	mkdir -p debian/frozendict/usr/lib
+	cp target/release/libfrozendict.so debian/frozendict/usr/lib/ 2>/dev/null || true

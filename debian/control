@@ -1,0 +1,15 @@
+Source: frozendict
+Section: utils
+Priority: optional
+Maintainer: Mahmoud Harmouch <oss@wiseai.dev>
+Build-Depends: debhelper-compat (= 13), cargo, rustc
+Standards-Version: 4.6.0
+Homepage: https://github.com/wiseaidev/frozndict
+
+Package: frozendict
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Blazingly fast, immutable dictionary Rust library
+ frozendict provides a fully immutable, hashable key-value store backed by a
+ sorted contiguous heap allocation with O(log n) binary-search lookups and
+ O(1) pre-computed hashing.

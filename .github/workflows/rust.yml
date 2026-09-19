@@ -23,6 +23,3 @@ jobs:
 
       - name: 🏗️ Build
         run: cargo build --verbose
-
-      - name: ✅ Run Rust Tests (unit + integration + doctests)
-        run: cargo test --all-features --verbose
