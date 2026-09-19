@@ -1,4 +1,4 @@
-frozendict (2.1.0-1) unstable; urgency=medium
+frozendict (2.1.1-1) unstable; urgency=medium
 
   * Initial release.
   * Optimized FrozenMap: sort+dedup replaces BTreeMap.

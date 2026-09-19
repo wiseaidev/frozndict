@@ -61,7 +61,7 @@ from frozndict._frozndict import (
 
 __author__ = "Mahmoud Harmouch"
 __email__ = "oss@wiseai.dev"
-__version__ = "2.1.0"
+__version__ = "2.1.1"
 
 frozendict = FrozenDict
 

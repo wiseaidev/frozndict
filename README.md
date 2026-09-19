@@ -55,7 +55,7 @@ Binary search beats hash-map lookup for maps with fewer than ~64 entries because
 
 ```toml
 [dependencies]
-frozendict = "2.1.0"
+frozendict = "2.1.1"
 ```
 
 ```rust
