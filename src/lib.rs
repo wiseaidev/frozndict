@@ -5,45 +5,35 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-//! # frozndict
-//!
-//! A memory-efficient, fully immutable dictionary for Python, powered by Rust.
-//!
-//! ## Overview
-//!
-//! `frozndict` provides a zero-overhead, hashable, immutable mapping type that
-//! can be used wherever a frozen alternative to Python's built-in `dict` is
-//! needed.
-//!
-//! The core data structure, [`frozen_map::FrozenMap`], stores entries in a
-//! single sorted heap allocation.  Lookups run in O(log n) via binary search;
-//! the hash is computed once at construction and cached, making repeated
-//! `hash()` calls O(1).
-//!
-//! The Python class [`python::FrozenDict`] wraps [`frozen_map::FrozenMap`] and
-//! is exposed to Python as the `FrozenDict` (and its `frozendict` alias) type.
-//!
-//! ## Modules
-//!
-//! - [`frozen_map`] - The core Rust data structure.
-//! - [`python`] - PyO3 Python bindings (gated on the `python` feature flag).
-
+#![cfg_attr(feature = "std", doc = include_str!("../README.md"))]
+#![cfg_attr(feature = "std", doc = include_str!("../RUST.md"))]
+#![doc(
+    html_logo_url = "https://raw.githubusercontent.com/wiseaidev/frozndict/refs/heads/main/assets/logo.png",
+    html_favicon_url = "https://raw.githubusercontent.com/wiseaidev/frozndict/refs/heads/main/assets/favicon.png"
+)]
+#![cfg_attr(not(feature = "std"), no_std)]
+#![cfg_attr(not(feature = "std"), doc = "")]
+#![cfg_attr(feature = "std", doc = include_str!("../README.md"))]
+#![cfg_attr(feature = "std", doc = include_str!("../RUST.md"))]
+#![cfg_attr(not(feature = "node"), forbid(unsafe_code))]
 #![cfg_attr(docsrs, feature(doc_cfg))]
+
+extern crate alloc;
 
 pub mod frozen_map;
 
-#[cfg(feature = "python")]
+#[cfg(all(feature = "python", feature = "std"))]
+#[cfg_attr(docsrs, doc(cfg(all(feature = "python", feature = "std"))))]
 pub mod python;
 
-#[cfg(feature = "python")]
+#[cfg(all(feature = "node", feature = "std"))]
+#[cfg_attr(docsrs, doc(cfg(all(feature = "node", feature = "std"))))]
+pub mod node;
+
+#[cfg(all(feature = "python", feature = "std"))]
 use pyo3::prelude::*;
 
-/// Entry point for the `_frozndict` Python extension module.
-///
-/// This function is called by Python's import machinery when the compiled
-/// extension is imported.  It registers the [`python::FrozenDict`] class and
-/// sets the module version string.
-#[cfg(feature = "python")]
+#[cfg(all(feature = "python", feature = "std"))]
 #[pymodule]
 fn _frozndict(py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;

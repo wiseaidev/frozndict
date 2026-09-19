@@ -2,6 +2,17 @@
 History
 =======
 
+2.1.1 (2026-09-19)
+------------------
+
+* **Modular Architecture**: Refactored core Rust map into a cleaner, multi-module structure.
+* **Full Python API Parity**: 
+  * Added `fromkeys` support.
+  * Added mutation guard stubs (`update`, `clear`, `pop`, etc.) to strictly raise `TypeError`. 
+  * Implemented `__class_getitem__` support to return `None` or `types.GenericAlias`.
+* **View Improvements**: Fixed `isdisjoint` and set operators (`&`, `|`, `-`, `^`) for views.
+* **Correctness**: Ensured order-independent deep equality (`__eq__`) and fixed edge cases causing test failures.
+
 2.1.0 (2026-07-13)
 ------------------
 

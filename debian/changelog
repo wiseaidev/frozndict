@@ -1,0 +1,8 @@
+frozendict (2.1.0-1) unstable; urgency=medium
+
+  * Initial release.
+  * Optimized FrozenMap: sort+dedup replaces BTreeMap.
+  * Added Node.js napi-rs bindings.
+  * Added functional APIs: merge, with, without, intersection, union, difference.
+
+ -- Mahmoud Harmouch <oss@wiseai.dev>  Thu, 18 Sep 2026 17:00:00 +0000
