@@ -38,7 +38,7 @@ jobs:
           mv ../*.deb ./dist/
 
       - name: Upload Debian artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: debian-package
           path: dist/*.deb
@@ -93,7 +93,7 @@ jobs:
           mv ~/rpmbuild/RPMS/*/*.rpm ./dist/
 
       - name: Upload RPM artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: rpm-package
           path: dist/*.rpm
