@@ -1,5 +1,5 @@
 Name:           frozendict
-Version:        2.1.1
+Version:        2.1.2
 Release:        1%{?dist}
 Summary:        Blazingly fast, immutable dictionary Rust library
 License:        MIT
@@ -29,7 +29,7 @@ cp target/release/libfrozendict.so %{buildroot}%{_libdir}/ 2>/dev/null || true
 %{_libdir}/libfrozendict.so
 
 %changelog
-* Thu Sep 18 2026 Mahmoud Harmouch <oss@wiseai.dev> - 2.1.0-1
+* Fri Sep 18 2026 Mahmoud Harmouch <oss@wiseai.dev> - 2.1.0-1
 - Initial RPM release.
 - Optimized FrozenMap (sort+dedup, multiplicative hash mixing).
 - Node.js napi-rs bindings.

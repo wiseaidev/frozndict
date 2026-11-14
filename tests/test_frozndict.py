@@ -15,7 +15,7 @@ from frozndict import __version__, frozendict
 
 
 def test_version():
-    assert __version__ == "2.1.1"
+    assert __version__ == "2.1.2"
 
 
 @pytest.fixture

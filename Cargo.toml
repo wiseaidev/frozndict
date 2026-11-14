@@ -1,12 +1,11 @@
 [package]
 name = "frozendict"
-version = "2.1.1"
+version = "2.1.2"
 authors = ["Mahmoud Harmouch <oss@wiseai.dev>"]
 edition = "2024"
 description = "🧊 A blazingly fast, memory-efficient, immutable dictionary for Python and Node.js, powered by Rust."
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/wiseaidev/frozndict"
 documentation = "https://docs.rs/frozendict"
 repository = "https://github.com/wiseaidev/frozndict"
 keywords = ["frozendict", "immutable", "dictionary", "hashmap", "napi"]
