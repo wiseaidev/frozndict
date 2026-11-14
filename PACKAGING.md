@@ -29,7 +29,7 @@ ls ../*.deb
 ### Install
 
 ```sh
-sudo dpkg -i ../frozendict_2.1.1_amd64.deb
+sudo dpkg -i ../frozendict_2.1.2_amd64.deb
 ```
 
 ### Verify
@@ -70,7 +70,7 @@ ls ~/rpmbuild/RPMS/x86_64/
 ### Install
 
 ```sh
-sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/frozendict-2.1.1-1.x86_64.rpm
+sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/frozendict-2.1.2-1.x86_64.rpm
 ```
 
 ### Verify
@@ -87,8 +87,8 @@ Pre-built `.deb` and `.rpm` packages are attached to every
 Download with `gh`:
 
 ```sh
-gh release download v2.1.1 --pattern '*.deb'
-gh release download v2.1.1 --pattern '*.rpm'
+gh release download v2.1.2 --pattern '*.deb'
+gh release download v2.1.2 --pattern '*.rpm'
 ```
 
 ## 🔗 See Also
